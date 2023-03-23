@@ -1,0 +1,321 @@
+:root{
+    --color: #13055b;
+}
+
+body{
+    margin: 0px;
+}
+
+/* HEADER */
+header{
+    margin-top: 10px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+    /* LOGO */
+    header figure{
+        width: 20%;
+        margin: 20px;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    #logo{
+        width: 100%;
+        max-width: 80px;
+    }
+    /*ZONA DE NAVEGACIÓN */
+    nav{
+        width: 100%;
+    }
+    nav ul{
+        margin: 0px;
+        padding: 10px;
+        list-style: none;
+        display: flex;
+        justify-content: end;
+        width: 90%;
+    }
+    nav ul li{
+        color: #000;
+        font-size: large;
+        text-align: center;
+        margin: 10px;
+    }
+
+    nav ul a{
+        text-decoration: none;
+    }
+    
+    nav ul li:hover{
+        color: var(--color);
+        font-weight: bold;
+    }
+
+
+
+/* MAIN */
+main{
+    margin: 40px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+section{
+    width: 90%;
+}
+    /* SECTION SOBRE MI */
+    #sobre_mi{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .texto_sombre_mi{
+        width: 50%;
+        margin-right: 15px;
+        text-align: justify;
+    }
+
+    .texto_sombre_mi .linea_top, .texto_sombre_mi h2{
+        display: block;
+        position: relative;
+        font-size: 35px;
+        letter-spacing: 5px;
+        color: #000;
+        margin: 0px;
+    }
+
+    .texto_sombre_mi h2{ 
+        letter-spacing: 2px;
+        font-weight: bold;
+        color: var(--color);
+    } 
+
+    .texto_sombre_mi .linea_top::after{
+        position: absolute;
+        content: '';
+        height: 4px;
+        width: 45px;
+        bottom: 10px;
+        background-color: var(--color);
+    }
+
+    .texto_sombre_mi h1{
+        display: block;
+        font-size: calc(2em + 2vw);
+        font-weight: bolder;
+        margin: 0px;
+    }
+    
+
+    .btns{
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+    }
+
+    .btns input{
+        margin: 10px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        color: #fff;
+        padding: 10px;
+        border-radius: 15px;
+        background-color: gray;
+    }
+
+    .btns input:hover{
+        background-color: var(--color);
+    }
+
+    .btns a{
+        text-decoration: none;
+    }
+
+    #contenedor_img{
+        width: 30%;
+        position: relative;
+    }
+
+    #contenedor_img img{
+        align-items: center;
+        height: 80%;
+        width: 80%;
+        margin-left: 40px;
+        object-fit: cover;
+    }
+        /* ANIMACIÓN CÍRCULO FOTO CV*/
+        .animacion_bola{
+            position: absolute;
+            z-index: -1;
+            top: 52%;
+            left: 50%;
+            height: 110%;
+            width: 80%;
+            transform: translate(-50%, -50%);
+            background-color: var(--color);
+            animation: 8s linnear infinite;
+            animation-name: mover_bola;
+        }
+
+        @keyframes mover_bola {
+            0%,100%{
+                border-radius: 45% 55% 70% 35% / 70% 30% 60% 70%;
+            }
+            25%{
+                border-radius:  55% 45% 30% 35% / 50% 30% 60% 10%;
+            }
+            50%{
+                border-radius:  65% 35% 35% 65% / 40% 60% 30% 70%;
+            }
+            25%{
+                border-radius:  35% 65% 60% 40% / 70% 30% 40% 60%;
+            }
+        }
+
+
+
+    /* SECTION MÁQINA VIRTUAL */
+    .maquina_virtual{
+        margin-top: 50px;
+        text-align: start;
+    }
+
+    .articulos_ubuntu h3{
+        font-size: 25px;
+        margin-bottom: 0px;
+    }
+
+    .articulos_ubuntu ul li{
+        list-style: none;
+        font-size: 16px;
+    }
+
+    .articulos_ubuntu ul li::before{
+        content: "- ";
+        font-size: 20px;
+    }
+
+    .articulos_ubuntu ul li:hover{
+        color: var(--color);
+        font-weight: bold;
+    }
+
+    .articulos_ubuntu a{
+        text-decoration: none;
+        color: black;
+    }
+
+
+
+
+
+
+
+
+
+/* PÁGINA INSTALACION-DE-UBUNTU-EN-MAQUINA-VIRTUAL.HTML */
+/* PÁGINA INSTALACION-DE-GUEST-ADDITIONS-EN-UBUNTU.HTML */
+/* PÁGINA INSTALACION-LAS-TARJETAS-RED-UBUNTU.HTML */
+/* PÁGINA CREAR-SITIO-WEB-DENTRO-DEL-SERVIDOR-APACHE.HTML*/
+.ubuntu{
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.ubuntu h1{
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-size: calc(2em + 2vw);
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+.ubuntu h2{
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-size: calc(1.6em + 1.6vw);
+    font-weight: bolder;
+    margin: 0px;
+}
+
+.ubuntu h3{
+    margin-top: 80px;
+    font-size: 28px;
+    text-align: center;
+}
+
+.ubuntu ol, .ubuntu p{
+    width: 90%;
+    text-align: justify;
+    margin: 20px auto;
+    font-size: 18px;
+}
+
+.ubuntu li{
+    width: 100%;
+    margin-top: 40px;
+    font-weight:bold;
+    text-align: center;
+}
+
+.ubuntu li p{
+    font-weight: 100;
+    width: 95%;
+    margin: 10px 0px 10px 10px;
+}
+
+.ubuntu .articulos_ubuntu{
+    width: 95%;
+}
+
+.ubuntu .articulos_ubuntu li{
+    text-align: justify;
+    margin: 5px;
+}
+
+.ubuntu img{
+    margin:10px 0px;
+    width: 80%;  
+    max-width: 500px; 
+}
+
+.ubuntu .fin{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 40px;
+}
+
+.ubuntu code{
+    text-align: justify;
+    white-space: pre-line;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 0px 0px 20px 20px;
+    border: 1px solid rgb(74, 74, 74);
+    background-color: gainsboro;
+    display: block;
+}
+
+.ubuntu span{
+    font-weight: 100;
+    width: 90%;
+    text-align: start;
+    background-color:#000; 
+    color:#ffffff ;
+    margin-left: 15px;
+    padding: 10px;
+    display: block;
+}
