@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="En este artículo vamos a realizar la instalación de phpldapadmin, después  accederemos vía web y crearemos algunos elementos como grupos y usuarios.">
+    <meta name="keywords" content="Pilar Linares Zapata, Grado Superior de Desarrollo de Aplicaciones Web, Cómo instalar phpldapadmin en Ubuntu, phpldapadmin, VirtualBox, Ubuntu, Sistemas informáticos, Despliegues de aplicaciones web, instalar phpldapadmin en Ubuntu, phpldapadmin en Ubuntu">
+    <meta name="author" content="Pilar Linares Zapata">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cómo instalar phpldapadmin en Ubuntu">
+    <meta property="og:image" content="../../../img/logo.jpg">
+
+    
+    <link rel="stylesheet" href="../../../css/style.css" type="text/css">
+    <link rel="icon" type="image/png" href="../../../img/logo.jpeg"/>
+    <title>Cómo instalar phpldapadmin en Ubuntu</title>
+</head>
+<body>
+    <header>
+        <figure>
+           <a href="https://pilarlinareszapata.github.io/"> 
+               <img src="../../../img/logo.jpeg" alt="logo LZP" id="logo"> 
+            </a>
+            <figcaption>Pilar Linares Zapata</figcaption>
+        </figure>
+        <nav>
+            <ul>
+                <a href="https://pilarlinareszapata.github.io/">
+                    <li>Inicio</li>
+                </a>
+                <li>Máquina Virtual</li>
+            </ul>
+        </nav>
+    </header>
+    <main id="instalacion_ubuntu"  class="ubuntu">
+        <article>
+            <h1>Máquina Virtual Ubuntu</h1>
+            <h2>Cómo instalar phpldapadmin en Ubuntu</h2>
+            <p>
+                En este artículo vamos a realizar la instalación de phpldapadmin, después  
+                accederemos vía web y crearemos algunos elementos como grupos y usuarios.
+            </p>
+            <ol>
+                <li>
+                    <p>
+                        Para comenzar, debemos tener conexión a Internet y una IP fija para nuestro 
+                        servidor (ya la tenemos configurada <a href="../configurar-las-tarjetas-red-ubuntu/">aquí</a>). 
+                        Si tarjetas red ya están configuradas, procedemos a la <strong>instalación de PHP LDAP Admin</strong>, ejecutando
+                        el siguiente comando:
+                    </p>
+                    <span>$ sudo apt-get install slapd ldap-utils</span>
+                </li>
+                <li>
+                    <p>
+                        A continuación, editamos el archivo de configuración <strong>(nano 
+                        /etc/phpldapadmin/config.php)</strong> con privilegios de root en su editor de texto y 
+                        <strong>buscamos las líneas remarcadas en rojo en la imagen siguiente y las modificaremos </strong>
+                        con nuestro domino base LDAP, en mi caso micentro.edu.
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/1.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <p>
+                        Las líneas de la imagen anterior son:
+                        <br><strong>Línea 329: </strong>$servers->setValue('server','base',array('dc=micentro,dc=edu'));
+                        <br><strong>Línea 356: </strong>$servers->setValue('login', 'bind_id','cn=admin,dc=micentro,dc=edu');
+                    </p>
+                    <p>
+                        <strong>*También puedes abrir el archivo como administrador desde la interfaz usuario instalando 
+                        el siguiente paquete desde la terminal</strong>
+                    </p>
+                    <span>$ sudo apt install nautilus-admin</span>
+                    <p>
+                        Cuando se haya instalado, nos dirigimos a la carpeta donde se encuentra el archivo (/etc/phpldapadmin/config.php),
+                        hacemos clic derecho sobre config.php y seleccionamos "Abrir com administrador". Una vez abierto ya podremos editar
+                        las líneas anteriores y guardar los cambios sin problema.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Y finalmente, necesitamos ajustar una configuración para controlar la visibilidad de 
+                        los mensajes de advertencia. Podemos <strong> ocultarlos buscando el parámetro 
+                        hide_template_warning, descomentando la línea que lo contiene y configurándolo en 
+                        “true”:</strong>
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/2.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <p>
+                        La línea de la imagen anterior es:
+                        <br><strong>Línea 186: </strong>$config->custom->appearance['hide_template_warning'] = true;
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Una vez configurado, podremos acceder vía web para administrar nuestro 
+                        servicio LDAP. Para ello accedemos a http://localhost/phpldapadmin y nos 
+                        logueamos con el usuario administrador:
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/3.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Si nos aparece el siguiente <strong>error al iniciar sesión en phpAdmin: Número de error no reconocido: 8192: trim(): 
+                        Passing null to parameter #1 ($string) of type string is deprecated</strong>, debemos de descargarnos el siguiente archivo
+                        <a href="descargar/phpLDAPadmin-1.2.6.4.tar.gz" download="phpLDAPadmin-1.2.6.4.tar.gz">HAZ CLICK AQUÍ PARA DESCARGAR</a>.
+                        Una vez descargado el archivo reemplazar las carpetas htdocs y lib de la de /user/share/phpldapadmin/ y ya desaparecería dicho error.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Ahora vamos a <strong>crear un</strong> objeto hijo de tipo <strong>Grupo</strong> Posix llamado grupos. Para ello,
+                        <strong>hacemos clic en dc=micentro, dc=edu -> en el lado derecho hacemos clic en "Crear un objeto hijo"</strong>:
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/4.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Seguidamente, nos aparecerá una lista de objetos que podemos crear. <strong>Elegiremos 
+                        “Genérico: Unidad Organizacional”.</strong>
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/5.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        <strong>Escribimos</strong>, en el cuadro de texto amarillo, <strong>el nombre</strong> de nuestra unidad 
+                        organizacional, que la llamaremos Grupos.
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/6.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Nos aparecerá una imagen como esta, donde <strong>pulsaremos el botón Cometer.</strong>
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/7.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        <strong>Repetir el mismo proceso para crea otro grupo Usuarios</strong>. Nuestro árbol de dominio 
+                        debe quedar como el de la imagen.
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/8.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Posteriormente, procedemos a <strong>crear</strong>, del mismo modo anterior, <strong>dos grupos dentro de mi unidad organizacional 
+                        Grupos, con nombres Alumnos y Profesores.</strong> Para ello selecciono en mi árbol de 
+                        dominio la unidad organizativa donde quiero crear ese objeto grupo (hijo) y 
+                        seleccionaré “Crear un objeto hijo”.
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/9.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Selecciono la plantilla “Genérico: Grupo Posix”.
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/10.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        A continuación, escribimos, el nombre del grupo (Alumnos) en el cuadro de texto 
+                        amarillo. Pulsaré en el botón “Cometer”. 
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/11.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        <strong>Repetimos el mismo paso anterior con el grupo Profesores</strong> y desplegamos el árbol de 
+                        domino para ver que los grupos se han creado correctamente donde yo quería. 
+                        Nuestro árbol debe quedar como muestra la imagen.
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/12.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Seguidamente, <strong>crearemos tres usuarios en la unidad organizacional Usuarios</strong>. Para 
+                        ello, la seleccionamos en nuestro árbol, creamos un objeto hijo, seleccionamos la 
+                        plantilla “Genérico: Cuenta de Usuario” y haremos este proceso para los usuarios 
+                        (Javier, Miguel y Joaquín). Como apellido de los usuarios usar: Javier Delgado, 
+                        Miguel Torres y Joaquín Vargas. La contraseña para todos será Micentro2021.
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/13.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Siguiendo este esquema, crear los dos usuarios restantes. <strong>Finalmente, mi árbol de 
+                        dominio quedará del siguiente modo:</strong>
+                    </p>
+                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/14.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+            </ol>
+        </article>
+        <article class="articulos_ubuntu">
+            <h3>Artículos relacionados: </h3>
+            <ul>
+                <a href="https://pilarlinareszapata.github.io/maquina-virtual/ubuntu/instalacion-de-ubuntu-en-maquina-virtual/"> 
+                    <li>Instalación de Ubuntu en VirtualBox</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/maquina-virtual/ubuntu/configurar-las-tarjetas-red-ubuntu/"> 
+                    <li>Configurar las tarjetas red en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/maquina-virtual/ubuntu/instalacion-de-guest-additions-en-ubuntu/"> 
+                    <li>Instalación de Guest Additions en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/maquina-virtual/ubuntu/crear-sitio-web-dentro-del-servidor-apache/"> 
+                    <li>Crea un sitio web dentro del servidor apache</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/maquina-virtual/ubuntu/instalacion-de-OpenLDAP/"> 
+                    <li>Cómo instalar el servidor OpenLDAP en Ubuntu</li>
+                </a>
+            </ul>
+        </article>
+    </main>
+</body>
+</html>
