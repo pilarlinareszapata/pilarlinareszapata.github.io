@@ -56,6 +56,10 @@ header{
         font-weight: bold;
     }
 
+    .side-menu{
+        display: none;
+    }
+
 
 
 /* MAIN */
@@ -120,16 +124,17 @@ section{
         width: 100%;
         display: inline-flex;
         justify-content: center;
+        align-items: center;
     }
 
     .btns input{
-        margin: 10px;
+        margin: 5px;
         font-size: 14px;
         letter-spacing: 2px;
         color: #fff;
         padding: 10px;
         border-radius: 15px;
-        background-color: gray;
+        background-color: rgb(50, 50, 56);
     }
 
     .btns input:hover{
@@ -143,6 +148,7 @@ section{
     #contenedor_img{
         width: 30%;
         position: relative;
+        z-index: -1;
     }
 
     #contenedor_img img{
@@ -168,16 +174,16 @@ section{
 
         @keyframes mover_bola {
             0%,100%{
-                border-radius: 45% 55% 70% 35% / 70% 30% 60% 70%;
+                border-radius: 45% 55% 30% 35% / 60% 30% 60% 60%;
             }
             25%{
                 border-radius:  55% 45% 30% 35% / 50% 30% 60% 10%;
             }
             50%{
-                border-radius:  65% 35% 35% 65% / 40% 60% 30% 70%;
+                border-radius:  65% 55% 25% 65% / 40% 60% 30% 60%;
             }
             25%{
-                border-radius:  35% 65% 60% 40% / 70% 30% 40% 60%;
+                border-radius:  35% 65% 50% 40% / 60% 30% 40% 60%;
             }
         }
 
@@ -195,13 +201,11 @@ section{
     }
 
     .articulos_ubuntu ul li{
-        list-style: none;
+        margin-bottom: 10px;
+        list-style:circle;
+        padding-left: 20px;
+        color: var(--color);
         font-size: 16px;
-    }
-
-    .articulos_ubuntu ul li::before{
-        content: "- ";
-        font-size: 20px;
     }
 
     .articulos_ubuntu ul li:hover{
@@ -318,4 +322,238 @@ section{
     margin-left: 15px;
     padding: 10px;
     display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RESPONSIVE */
+@media  screen and (max-width: 500px) {
+
+    header{
+        top:0;
+        margin: 0;
+        padding: 4px 0px;
+        position: fixed;
+        z-index: 1;
+        height: 70px;
+    }
+        /* LOGO */
+        header figure{
+            width: 20%;
+            margin: 0px;
+        }
+
+        header figure figcaption{
+            display: none;
+        }
+
+        #logo{
+            width: 60%;
+        }
+
+        /* MENÚ HABURGUESA */
+        .menu{
+            width: 50%;
+            margin-right: 30px;
+        }
+        .menu nav{
+            display: none;
+            position: absolute;
+            width: 60%;
+            position: fixed;
+            height: 100%;
+            transition: max-height .5s ease-out;
+            background-color: var(--color);
+        }
+
+        .menu nav ul{
+            display: block;
+            width: 90%;
+            height: 100%;
+        }
+
+        .menu nav ul li{
+            padding: 10px;
+        }
+
+        .menu nav ul li:hover{
+            background: rgba(238,238,238,0.2);
+        }
+
+        
+        .hamb{
+            cursor: pointer;
+            float: right;
+        }
+
+
+        .hamb-line{
+            background: var(--color);
+            border-radius: 2px;
+            display: block;
+            height: 5px;
+            position: relative;
+            width: 30px;
+            
+        }
+
+        .hamb-line::before,
+        .hamb-line::after{
+            background: var(--color);
+            border-radius: 2px;
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            transition: all .2s ease-out;
+            width: 100%;
+        }
+
+        .hamb-line::before{
+            top: 8px;
+        }
+
+        .hamb-line::after{
+            top: -8px;
+        }
+
+       .side-menu {
+            z-index: 1;
+            opacity: 0;
+            position: absolute;
+            display: block;
+            top:32px;
+            right: 30px;
+            width: 32px;
+            height: 32px;
+        }
+
+        .side-menu:checked ~ nav{
+            z-index: -1;
+            padding-top: 20px;
+            display: block;
+            right: 30px;
+            top:30px;
+        }
+
+        .side-menu:checked ~ nav ul li{
+            width: 80%;
+            font-size: large;
+            text-align: start;
+            width: 90%;
+            color: #fff;
+            margin: 10px;
+        }
+
+        .side-menu:checked ~ .hamb .hamb-line{
+            background: transparent;
+        }
+
+        .side-menu:checked ~ .hamb .hamb-line::before{
+            background: white;
+            transform: rotate(-45deg);
+            top:0;
+        }
+
+        .side-menu:checked ~ .hamb .hamb-line::after{
+            background: white;
+            transform: rotate(45deg);
+            top:0;
+        }
+
+
+
+    main{
+        margin: 40px 20px;
+        padding-top: 80px;
+    }
+
+    section{
+        width: 100%;
+    }
+        /* SECTION SOBRE MI */
+        #sobre_mi{
+            margin-top: 30px;
+            flex-direction: column;
+        }
+    
+        .texto_sombre_mi{
+            width: 90%;
+        }
+    
+        .texto_sombre_mi .linea_top, .texto_sombre_mi h2{
+            font-size: 28px;
+        }
+    
+        .texto_sombre_mi h1{
+            margin: 10px 0px;
+            font-size: 45px;
+            text-align: start;
+        }
+    
+        #contenedor_img{
+            position: absolute;
+            width: 50%;
+            top: 90px;
+            left: 180px;
+        }
+    
+        #contenedor_img img{
+            height: 80%;
+            width: 80%;
+            object-fit: cover;
+            border-radius: 100px;
+        }
+
+        /* ANIMACIÓN CÍRCULO FOTO CV*/
+        .animacion_bola{
+            left: 55%;
+            width: 70%;
+            background: radial-gradient(circle, rgba(230,230,230,1) 50%, rgba(30,30,114,1) 60%);
+        }               
+
+
+    /* SECTION MÁQINA VIRTUAL */
+    .maquina_virtual h2{
+        text-align: center;
+        font-size: 35px;
+        letter-spacing: 5px;
+        color: #000;
+        margin: 0px;
+        padding: 5px 0px;
+        border: 3px solid var(--color);
+        border-radius: 2px;
+    }
+
+    .articulos_ubuntu h3{
+        font-size: 25px;
+        margin-bottom: 0px;
+        margin-left: 10px;
+    }
+
+    .articulos_ubuntu ul li{
+        text-align: start;
+        padding-left: 2px;
+    }
+
+    .articulos_ubuntu ul li:hover{
+        color: var(--color);
+        font-weight: bold;
+    }
+
+    .articulos_ubuntu a{
+        text-decoration: none;
+        color: black;
+    }
 }

@@ -22,12 +22,18 @@
             <img src="img/logo.jpeg" alt="logo LPZ" id="logo">
             <figcaption>Pilar Linares Zapata</figcaption>
         </figure>
-        <nav>
-            <ul>
-                <li>Inicio</li>
-                <li>VirtualBox</li>
-            </ul>
-        </nav>
+        <div class="menu">
+            <input type="checkbox" class="side-menu">
+            <label for="side-menu" class="hamb">
+                <span class="hamb-line"></span>
+            </label>
+            <nav>
+                <ul>
+                    <li>Inicio</li>
+                    <li>VirtualBox</li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main>
         <section id="sobre_mi">
@@ -43,9 +49,11 @@
                     CSS, JavaScript, Java y PHP, entre otras.
                 </p>
                 <div class = "btns">
-                    <input type="button" id="descargar_cv" value="Descargar CV">
+                    <a href="descargar/curriculum_PilarLinaresZapata.pdf" download="curriculum_PilarLinaresZapata.pdf">
+                        <input type="button" id="descargar_cv" value="Descargar CV">
+                    </a>
                     <a href="https://pilarlinareszapata.github.io/sobre-mi/" >
-                        <input type="button" id="sobre_mi" value="Más sobre mi">
+                        <input type="button" id="sobre_mi_btn" value="Más sobre mi">
                     </a>
                 </div>
             </div>
@@ -54,7 +62,7 @@
                 <span class="animacion_bola"></span>
             </div>
         </section>
-        <section id="maquina_virtual">
+        <section class="maquina_virtual">
             <h2>VirtualBox</h2>
             <article class="articulos_ubuntu">
                 <h3>Ubuntu</h3>
