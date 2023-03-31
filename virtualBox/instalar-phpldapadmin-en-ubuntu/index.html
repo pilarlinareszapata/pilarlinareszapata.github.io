@@ -9,18 +9,18 @@
     <meta name="author" content="Pilar Linares Zapata">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Cómo instalar phpldapadmin en Ubuntu">
-    <meta property="og:image" content="../../../img/logo.jpg">
+    <meta property="og:image" content="../../img/logo.jpg">
 
     
-    <link rel="stylesheet" href="../../../css/style.css" type="text/css">
-    <link rel="icon" type="image/png" href="../../../img/logo.jpeg"/>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="icon" type="image/png" href="../../img/logo.jpeg"/>
     <title>Cómo instalar phpldapadmin en Ubuntu</title>
 </head>
 <body>
     <header>
         <figure>
            <a href="https://pilarlinareszapata.github.io/"> 
-               <img src="../../../img/logo.jpeg" alt="logo LZP" id="logo"> 
+               <img src="../../img/logo.jpeg" alt="logo LZP" id="logo"> 
             </a>
             <figcaption>Pilar Linares Zapata</figcaption>
         </figure>
@@ -44,7 +44,7 @@
                 <li>
                     <p>
                         Para comenzar, debemos tener conexión a Internet y una IP fija para nuestro 
-                        servidor (ya la tenemos configurada <a href="../configurar-las-tarjetas-red-ubuntu/">aquí</a>). 
+                        servidor (ya la tenemos configurada <a href="../configurar-tarjetas-red-en-ubuntu/">aquí</a>). 
                         Si tarjetas red ya están configuradas, procedemos a la <strong>instalación de PHP LDAP Admin</strong>, ejecutando
                         el siguiente comando:
                     </p>
@@ -57,7 +57,7 @@
                         <strong>buscamos las líneas remarcadas en rojo en la imagen siguiente y las modificaremos </strong>
                         con nuestro domino base LDAP, en mi caso micentro.edu.
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/1.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/1.JPG" alt="imagen que muestra donde hay que hacer clic">
                     <p>
                         Las líneas de la imagen anterior son:
                         <br><strong>Línea 329: </strong>$servers->setValue('server','base',array('dc=micentro,dc=edu'));
@@ -81,7 +81,7 @@
                         hide_template_warning, descomentando la línea que lo contiene y configurándolo en 
                         “true”:</strong>
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/2.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/2.JPG" alt="imagen que muestra donde hay que hacer clic">
                     <p>
                         La línea de la imagen anterior es:
                         <br><strong>Línea 186: </strong>$config->custom->appearance['hide_template_warning'] = true;
@@ -93,13 +93,13 @@
                         servicio LDAP. Para ello accedemos a http://localhost/phpldapadmin y nos 
                         logueamos con el usuario administrador:
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/3.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/3.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
                         Si nos aparece el siguiente <strong>error al iniciar sesión en phpAdmin: Número de error no reconocido: 8192: trim(): 
                         Passing null to parameter #1 ($string) of type string is deprecated</strong>, debemos de descargarnos el siguiente archivo
-                        <a href="descargar/phpLDAPadmin-1.2.6.4.tar.gz" download="phpLDAPadmin-1.2.6.4.tar.gz">HAZ CLICK AQUÍ PARA DESCARGAR</a>.
+                        <a href="../../descargar/phpLDAPadmin-1.2.6.4.tar.gz" download="phpLDAPadmin-1.2.6.4.tar.gz">HAZ CLICK AQUÍ PARA DESCARGAR</a>.
                         Una vez descargado el archivo reemplazar las carpetas htdocs y lib de la de /user/share/phpldapadmin/ y ya desaparecería dicho error.
                     </p>
                 </li>
@@ -108,34 +108,34 @@
                         Ahora vamos a <strong>crear un</strong> objeto hijo de tipo <strong>Grupo</strong> Posix llamado grupos. Para ello,
                         <strong>hacemos clic en dc=micentro, dc=edu -> en el lado derecho hacemos clic en "Crear un objeto hijo"</strong>:
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/4.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/4.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
                         Seguidamente, nos aparecerá una lista de objetos que podemos crear. <strong>Elegiremos 
                         “Genérico: Unidad Organizacional”.</strong>
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/5.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/5.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
                         <strong>Escribimos</strong>, en el cuadro de texto amarillo, <strong>el nombre</strong> de nuestra unidad 
                         organizacional, que la llamaremos Grupos.
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/6.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/6.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
                         Nos aparecerá una imagen como esta, donde <strong>pulsaremos el botón Cometer.</strong>
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/7.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/7.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
                         <strong>Repetir el mismo proceso para crea otro grupo Usuarios</strong>. Nuestro árbol de dominio 
                         debe quedar como el de la imagen.
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/8.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/8.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
@@ -144,20 +144,20 @@
                         dominio la unidad organizativa donde quiero crear ese objeto grupo (hijo) y 
                         seleccionaré “Crear un objeto hijo”.
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/9.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/9.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
                         Selecciono la plantilla “Genérico: Grupo Posix”.
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/10.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/10.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
                         A continuación, escribimos, el nombre del grupo (Alumnos) en el cuadro de texto 
                         amarillo. Pulsaré en el botón “Cometer”. 
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/11.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/11.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
@@ -165,7 +165,7 @@
                         domino para ver que los grupos se han creado correctamente donde yo quería. 
                         Nuestro árbol debe quedar como muestra la imagen.
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/12.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/12.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
@@ -175,14 +175,14 @@
                         (Javier, Miguel y Joaquín). Como apellido de los usuarios usar: Javier Delgado, 
                         Miguel Torres y Joaquín Vargas. La contraseña para todos será Micentro2021.
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/13.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/13.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
                         Siguiendo este esquema, crear los dos usuarios restantes. <strong>Finalmente, mi árbol de 
                         dominio quedará del siguiente modo:</strong>
                     </p>
-                    <img src="../../../img/virtualBox/ubuntu/instalacion phpldapadmin/14.JPG" alt="imagen que muestra donde hay que hacer clic">
+                    <img src="../../img/virtualBox/ubuntu/instalacion phpldapadmin/14.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
             </ol>
         </article>
