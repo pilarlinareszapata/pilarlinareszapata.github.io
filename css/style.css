@@ -340,9 +340,10 @@ section{
 @media  screen and (max-width: 500px) {
 
     header{
+        width: 90%;
         top:0;
-        margin: 0;
-        padding: 4px 0px;
+        margin: 0px;
+        padding: 4px 20px;
         position: fixed;
         z-index: 1;
         height: 70px;
@@ -443,15 +444,15 @@ section{
             padding-top: 20px;
             display: block;
             right: 30px;
-            top:30px;
+            top:15px;
         }
 
         .side-menu:checked ~ nav ul li{
             width: 80%;
             font-size: large;
             text-align: start;
-            width: 90%;
             color: #fff;
+            border-bottom: 1px solid #fff;
             margin: 10px;
         }
 
@@ -523,7 +524,7 @@ section{
         }               
 
 
-    /* SECTION MÁQINA VIRTUAL */
+    /* INDEX SECTION VIRTUALBOX */
     .maquina_virtual h2{
         text-align: center;
         font-size: 35px;
@@ -555,4 +556,91 @@ section{
         text-decoration: none;
         color: black;
     }
+
+
+    /* ARTÍCULOS VIRTUALBOX - UBUNTU ESTILOS MAIN */ 
+    
+    .ubuntu h1{
+        font-size: 26px;
+    }
+
+    .ubuntu h3{
+        font-size: 24px;
+    }
+    
+    .ubuntu ol, .ubuntu p{
+        width: 90%;
+        text-align: start;
+        margin: 20px auto;
+        padding-left: 5px;
+        font-size: 16px;
+    }
+    
+    .ubuntu li{
+        width: 100%;
+        margin-top: 40px;
+        font-weight:bold;
+        text-align: center;
+    }
+    
+    .ubuntu li p, .ubuntu p{
+        font-weight: 100;
+        width: 95%;
+        margin: 10px 0px 10px 0px;
+    }
+    
+    .ubuntu ol li ul{
+        padding-left: 10px;
+    }
+    
+    .ubuntu img{
+        margin:10px 0px;
+        width: 80%;  
+        max-width: 500px; 
+    }
+    
+    .ubuntu .fin{
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+        margin: 40px 0px;
+        padding: 0px;
+    }
+    
+    .ubuntu code{
+        text-align: justify;
+        white-space: pre-line;
+        font-weight: bold;
+        font-size: 14px;
+        padding: 0px 0px 20px 20px;
+        border: 1px solid rgb(74, 74, 74);
+        background-color: gainsboro;
+        display: block;
+    }
+    
+    .ubuntu span{
+        font-weight: 100;
+        width: 90%;
+        text-align: start;
+        background-color:#000; 
+        color:#ffffff ;
+        margin-left: 15px;
+        padding: 10px;
+        display: block;
+    }
+
+    .ubuntu .articulos_ubuntu{
+        width: 95%;
+    }
+    
+    .ubuntu .articulos_ubuntu li{
+        text-align: justify;
+        margin: 15px;
+    }
+    .articulos_ubuntu ul{
+        padding-left: 15px;
+    }
+    
 }
+
