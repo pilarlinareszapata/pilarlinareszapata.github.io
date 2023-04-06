@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="En este artículo vamos a configurar el servidor DNS maestro sobre el dominio ejemplo.es en nuestra máquina virtual Ubuntu.">
+    <meta name="keywords" content="Pilar Linares Zapata, Grado Superior de Desarrollo de Aplicaciones Web, Configurar el servidor DNS maestro sobre un dominio en Ubuntu, Máquina Virtual, VirtualBox, Ubuntu, Sistemas informáticos, Despliegues de aplicaciones web, configuración del servidor DNS maestro, configurar el servidor DNS sobre un dominio virtualBox Ubuntu">
+    <meta name="author" content="Pilar Linares Zapata">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Configuración del servidor DNS maestro sobre un dominio en Ubuntu">
+    <meta property="og:image" content="../../img/logo.jpg">
+
+    
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="icon" type="image/png" href="../../img/logo.jpeg"/>
+    <title>Configuración del servidor DNS maestro sobre un dominio en Ubuntu</title>
+</head>
+<body>
+    <header>
+        <figure>
+            <a href="https://pilarlinareszapata.github.io/"> 
+               <img src="../../img/logo.jpeg" alt="logo LZP" id="logo"> 
+            </a>
+            <figcaption>Pilar Linares Zapata</figcaption>
+        </figure>
+        <div class="menu">
+            <input type="checkbox" class="side-menu">
+            <label for="side-menu" class="hamb">
+                <span class="hamb-line"></span>
+            </label>
+            <nav>
+                <ul>
+                    <a href="https://pilarlinareszapata.github.io/">
+                        <li>Inicio</li>
+                    </a>
+                    <li>VirtualBox</li>
+                </ul>
+            </nav>
+        </div>
+    </header> 
+    <main id="configuracion_redes"  class="ubuntu">
+        <article>
+            <h1>Configuración del servidor DNS maestro sobre un dominio en nuestro VirtualBox Ubuntu</h1>
+            <p>
+                En este artículo vamos a configurar un servidor DNS maestro sobre el dominio ejemplo.es. 
+                Crear los archivos de búsqueda directa e inversa. Modificar en el equipo cliente la 
+                configuración de los ficheros necesarios para que el DNS resuelva las peticiones. 
+                Enviar al profesor pantallazos de todos los ficheros de configuración modificados, en 
+                el cliente y en el servidor. Comprimir el archivo con vuestro nombre. En Internet encontraréis 
+                muchos enlaces que os pueden ayudar en la configuración.
+            </p>
+            <ol>
+                <li>
+                    <p>
+                        Antes de comenzar debemos tener configuradas las tarjetas red. Si no las tienes configuradas
+                        en el artículo <a href="https://pilarlinareszapata.github.io/virtualBox/configurar-tarjetas-red-en-ubuntu/">
+                        "Configuración de tarjetas red de nuestro VirtualBox Ubuntu"</a> te explicamos cómo hacerlo.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Ahora procederemos a la configuración e instalación del servidor DNS usando 
+                        bind9, para ello es necesario tener actualizados los repositorios que se 
+                        encuentran en la ruta /etc/apt/sources.list, con lo que procedemos a ejecutar 
+                        los comandos de actualización:
+                    </p>
+                    <span>$ sudo apt-get update</span>
+                    <span>$ sudo apt-get upgrade</span>
+                    <span></span>
+                </li>
+                <li>
+                    <p>
+                        Una vez instalados y actualizados los paquetes, toca instalar bind9, para ello 
+                        ejecutamos en el terminal el siguiente comando. 
+                        Así instalaríamos los programas necesarios para disponer de un completo 
+                        servidor DNS con bind. Tan solo será necesario configurar lo y ponerlo en 
+                        marcha.
+                    </p>
+                    <span>$  sudo apt-get install bind9 bind9utils</span>
+                </li>
+                <li>
+                    <p>
+                        Para comprobar que el servicio DNS se ha instalado correctamente, podemos 
+                        usar el siguiente comando
+                    </p>
+                    <span>$ sudo service bind9 status</span>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/1.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Si al ejecutar el comando anterior nos sale algunos errores, los 
+                        solucionaremos ejecutando uno a uno los siguientes comandos:
+                    </p>
+                    <span>$ sudo ufw allow bind9</span>
+                    <span>$ systemctl restart named</span>
+                    <span>$ systemctl status named</span>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/2.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Podemos verificar qué puerto TCP y UDP (User Datagram Protocol protocolo 
+                        mínimo de nivel de transporte orientado a mensajes) está activo el servidor 
+                        bind9. Para ello escribimos la siguiente linea de código: 
+                    </p>
+                        <span>$ sudo netstat -natp | grep named</span>
+
+                        <ul>
+                            <li>
+                                <p> Si aparece <strong>sudo: netstat: orden no encontrada</strong>, deberemos ejecutar el siguiente comando:</p>
+                                <span>$ sudo apt install net-tools</span>
+                            </li>
+                            <li>
+                                <p>Una vez instalado ya podemos volver a ejecutar el comando anterior:</p>
+                                <span>$ sudo netstat -natp | grep named</span>
+                            </li>
+                        </ul>
+                </li>
+                <li>
+                    <p>
+                        A continuación, editaremos el archivo named.conf.options, donde descomentaremos 
+                        las líneas de forwarders (reenviadores) y añadiremos las IPs de servidores DNS 
+                        externos donde consultará nuestro servicio en caso de que no encuentre la 
+                        respuesta a nuestra petición en nuestro servidor DNS. (debes de abrir el 
+                        terminal como admi escribiendo la siguiente linea sudo -s).
+                    </p>
+                    <span>$ nano /etc/bind/named.conf.options</span>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/3.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Ahora vamos a instalar un servidor DNS privado con un dominio ficticio 
+                        ‘ejemplo.es’, para ello debemos editar el siguiente archivo, escribimos:
+                    </p>
+                        <span>$ nano /etc/bind/named.conf.local</span>
+                    <p> 
+                         y lo dejamos igual que en la imagen siguiente:
+                    </p>
+                    <code>
+                        //Definición de la zona de resolución directa.
+                        zone "ejemplo.es" {
+                            &nbsp;type master;
+                            &nbsp; file "etc/bind/db.ejemplo.es";
+                        }
+                        //Definición de la zona de resolución inversa.
+                        zone "56.168.192.in-addr.arpa" IN {
+                            &nbsp;type master;
+                            &nbsp; file "etc/bind/db.192";
+                        }
+                    </code>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/4.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Después, creamos el fichero de configuración db.ejemplo.es y copiamos en él, 
+                        el contenido de db.local, para ello escribimos la siguiente linea: 
+                    </p>
+                    <span>$ sudo cp /etc/bind/db.local /etc/bind/db.ejemplo.es</span>
+                    <p>
+                        Seguidamente, modificamos el archivo, cambiando las entradas a "localhost" por 
+                        el nombre del dominio que hemos elegido: “ejemplo.es” tal y como se puede 
+                        ver en la siguiente imagen:
+                    </p>
+                    <span>$ nano /etc/bind/db.ejemplo.es</span>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/5.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Según la configuración realizada en el fichero named.conf.local, para poder 
+                        realizar consultas inversas (de IP a nombre) será necesario crear el archivo 
+                        db.192. Para ello copiamos el archivo de configuración por defecto para 
+                        editarlo y modificarlo. Escribimos en el terminal 
+                    </p>
+                    <span>$ sudo cp /etc/bind/db.127 /etc/bind/db.192 </span>
+                    <span>$ nano /etc/bind/db.192 </span>
+                    <p>
+                        Seguidamente, modificamos el archivo, cambiando las entradas a "localhost" por 
+                        el nombre del dominio que hemos elegido: “ejemplo.es” tal y como se puede 
+                        ver en la siguiente imagen:
+                    </p>
+                    <span>$ nano /etc/bind/db.ejemplo.es</span>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/6.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Podemos comprobar que no tenemos errores de sintaxis en los ficheros named 
+                        y en los de zona, gracias a los siguientes comandos:                        
+                    </p>
+                    <span>$ sudo named-checkconf /etc/bind/named.conf</span>
+                    <span>$ sudo named-checkconf /etc/bind/named.conf.local</span>
+                    <span>$ sudo named-checkconf /etc/bind/named.conf.options</span>
+                    <span>$ sudo named-checkzone micentro.edu /etc/bind/db.ejemplo.es</span>
+                    <span>$ sudo named-checkzone micentro.edu /etc/bind/db.192</span>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/7.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Una vez que hemos guardado el fichero de configuración, reiniciamos el 
+                        proceso bind con uno del siguiente comando:
+                    </p>
+                    <span>$ sudo service bind9 restart</span>
+                </li>
+                <li>
+                    <p>
+                        Una vez configurado nuestro servidor DNS, debemos indicar a nuestro servidor 
+                        Linux quienes son los servidores DNS, el dominio de nuestro servidor y dónde 
+                        es necesario realizar la búsqueda. Escribimos: 
+                    </p>
+                    <span>$ sudo gedit /etc/resolv.conf</span>
+                    </p>
+                        Se nos abrirá el archivo resolv.conf, el cual lo dejaremos como en la siguiente 
+                        imagen.                        
+                    </p>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/8.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>Por último volvemos a reiniciar el proceso bind, ejecutando: </p>
+                    <span>$ sudo service bind9 restart</span>
+                </li>
+                <li>
+                    <p>
+                        Para comprobar que la configuración se ha realizado con éxito escribimos los 
+                        comandos que aparecen en la siguiente imagen:
+                    </p>
+                    <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/9.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+            </ol>
+            <p class="fin">
+                Con estos pasos, ya tendremos configurado el servidor DNS maestro sobre el dominio ejemplo.es en nuestra máquina virtual Ubuntu.
+            </p>
+        </article>
+        <article class="articulos_ubuntu">
+            <h3>Artículos relacionados: </h3>
+            <ul>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/instalar-ubuntu-en-virtualBox/"> 
+                    <li>Cómo instalar Ubuntu en VirtualBox</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/instalar-guest-additions-en-ubuntu/"> 
+                    <li>Cómo instalar Guest Additions en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/configurar-tarjetas-red-en-ubuntu/"> 
+                    <li>Cómo configurar las tarjetas red en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/crear-sitio-web-en-servidor-apache-con-ubuntu/"> 
+                    <li>Cómo crear un sitio web dentro del servidor apache en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/instalar-OpenLDAP-en-ubuntu/"> 
+                    <li>Cómo instalar el servidor OpenLDAP en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/instalar-phpldapadmin-en-ubuntu/"> 
+                    <li>Cómo instalar phpldapadmin en Ubuntu</li>
+                </a>
+            </ul>
+        </article>
+    </main>
+</body>
+</html>
