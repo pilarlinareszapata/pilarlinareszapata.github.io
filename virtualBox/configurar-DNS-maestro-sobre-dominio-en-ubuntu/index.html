@@ -46,14 +46,11 @@
                 En este artículo vamos a configurar un servidor DNS maestro sobre el dominio ejemplo.es. 
                 Crear los archivos de búsqueda directa e inversa. Modificar en el equipo cliente la 
                 configuración de los ficheros necesarios para que el DNS resuelva las peticiones. 
-                Enviar al profesor pantallazos de todos los ficheros de configuración modificados, en 
-                el cliente y en el servidor. Comprimir el archivo con vuestro nombre. En Internet encontraréis 
-                muchos enlaces que os pueden ayudar en la configuración.
             </p>
             <ol>
                 <li>
                     <p>
-                        Antes de comenzar debemos tener configuradas las tarjetas red. Si no las tienes configuradas
+                        Antes de comenzar <strong>debemos tener configuradas las tarjetas red</strong>. Si no las tienes configuradas
                         en el artículo <a href="https://pilarlinareszapata.github.io/virtualBox/configurar-tarjetas-red-en-ubuntu/">
                         "Configuración de tarjetas red de nuestro VirtualBox Ubuntu"</a> te explicamos cómo hacerlo.
                     </p>
@@ -62,26 +59,23 @@
                     <p>
                         Ahora procederemos a la configuración e instalación del servidor DNS usando 
                         bind9, para ello es necesario tener actualizados los repositorios que se 
-                        encuentran en la ruta /etc/apt/sources.list, con lo que procedemos a ejecutar 
-                        los comandos de actualización:
+                        encuentran en la ruta /etc/apt/sources.list, con lo que procedemos a <strong>ejecutar 
+                        los comandos de actualización:</strong>
                     </p>
                     <span>$ sudo apt-get update</span>
                     <span>$ sudo apt-get upgrade</span>
-                    <span></span>
                 </li>
                 <li>
                     <p>
-                        Una vez instalados y actualizados los paquetes, toca instalar bind9, para ello 
-                        ejecutamos en el terminal el siguiente comando. 
-                        Así instalaríamos los programas necesarios para disponer de un completo 
-                        servidor DNS con bind. Tan solo será necesario configurar lo y ponerlo en 
-                        marcha.
+                        Una vez instalados y actualizados los paquetes, toca <strong>instalar bind9</strong>, para ello 
+                        ejecutamos en el terminal el siguiente comando. Así instalaríamos los programas necesarios para disponer de un completo 
+                        servidor DNS con bind. Tan solo será necesario configurar lo y ponerlo en marcha.
                     </p>
                     <span>$  sudo apt-get install bind9 bind9utils</span>
                 </li>
                 <li>
                     <p>
-                        Para comprobar que el servicio DNS se ha instalado correctamente, podemos 
+                        Para <strong>comprobar que el servicio DNS se ha instalado correctamente</strong>, podemos 
                         usar el siguiente comando
                     </p>
                     <span>$ sudo service bind9 status</span>
@@ -89,8 +83,8 @@
                 </li>
                 <li>
                     <p>
-                        Si al ejecutar el comando anterior nos sale algunos errores, los 
-                        solucionaremos ejecutando uno a uno los siguientes comandos:
+                        <strong>Si</strong> al ejecutar el comando anterior nos <strong>sale algú error, los 
+                        solucionaremos ejecutando</strong> uno a uno los siguientes comandos:
                     </p>
                     <span>$ sudo ufw allow bind9</span>
                     <span>$ systemctl restart named</span>
@@ -118,9 +112,9 @@
                 </li>
                 <li>
                     <p>
-                        A continuación, editaremos el archivo named.conf.options, donde descomentaremos 
-                        las líneas de forwarders (reenviadores) y añadiremos las IPs de servidores DNS 
-                        externos donde consultará nuestro servicio en caso de que no encuentre la 
+                        A continuación, <strong>editaremos el archivo named.conf.options</strong>, donde <strong>descomentaremos 
+                        las líneas de forwarders</strong> (reenviadores) <strong>y añadiremos las IPs de servidores DNS 
+                        externos</strong> donde consultará nuestro servicio en caso de que no encuentre la 
                         respuesta a nuestra petición en nuestro servidor DNS. (debes de abrir el 
                         terminal como admi escribiendo la siguiente linea sudo -s).
                     </p>
@@ -129,12 +123,12 @@
                 </li>
                 <li>
                     <p>
-                        Ahora vamos a instalar un servidor DNS privado con un dominio ficticio 
-                        ‘ejemplo.es’, para ello debemos editar el siguiente archivo, escribimos:
+                        Ahora vamos a <strong>instalar un servidor DNS privado con un dominio ficticio 
+                        ‘ejemplo.es’</strong>, para ello debemos <strong>editar el siguiente archivo</strong>, escribimos:
                     </p>
                         <span>$ nano /etc/bind/named.conf.local</span>
                     <p> 
-                         y lo dejamos igual que en la imagen siguiente:
+                        <strong>Escribimos lo siguiente:</strong>
                     </p>
                     <code>
                         //Definición de la zona de resolución directa.
@@ -148,17 +142,20 @@
                             &nbsp; file "etc/bind/db.192";
                         }
                     </code>
+                    <p> 
+                        <strong>Debe quedar igual que en la imagen siguiente:</strong>
+                   </p>
                     <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/4.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
-                        Después, creamos el fichero de configuración db.ejemplo.es y copiamos en él, 
+                        Después, <strong>creamos el fichero de configuración db.ejemplo.es</strong> y copiamos en él, 
                         el contenido de db.local, para ello escribimos la siguiente linea: 
                     </p>
                     <span>$ sudo cp /etc/bind/db.local /etc/bind/db.ejemplo.es</span>
                     <p>
-                        Seguidamente, modificamos el archivo, cambiando las entradas a "localhost" por 
-                        el nombre del dominio que hemos elegido: “ejemplo.es” tal y como se puede 
+                        Seguidamente, <strong>modificamos el archivo, cambiando las entradas a "localhost" por</strong> 
+                        el nombre del dominio que hemos elegido: <strong>“ejemplo.es”</strong> tal y como se puede 
                         ver en la siguiente imagen:
                     </p>
                     <span>$ nano /etc/bind/db.ejemplo.es</span>
@@ -167,23 +164,17 @@
                 <li>
                     <p>
                         Según la configuración realizada en el fichero named.conf.local, para poder 
-                        realizar consultas inversas (de IP a nombre) será necesario crear el archivo 
-                        db.192. Para ello copiamos el archivo de configuración por defecto para 
-                        editarlo y modificarlo. Escribimos en el terminal 
+                        realizar consultas inversas (de IP a nombre) será necesario <strong>crear el archivo 
+                        db.192</strong>. Para ello copiamos el archivo de configuración por defecto para 
+                        editarlo <strong>y modificarlo</strong>. Escribimos en el terminal 
                     </p>
                     <span>$ sudo cp /etc/bind/db.127 /etc/bind/db.192 </span>
                     <span>$ nano /etc/bind/db.192 </span>
-                    <p>
-                        Seguidamente, modificamos el archivo, cambiando las entradas a "localhost" por 
-                        el nombre del dominio que hemos elegido: “ejemplo.es” tal y como se puede 
-                        ver en la siguiente imagen:
-                    </p>
-                    <span>$ nano /etc/bind/db.ejemplo.es</span>
                     <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/6.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
                     <p>
-                        Podemos comprobar que no tenemos errores de sintaxis en los ficheros named 
+                        Podemos <strong>comprobar que no tenemos errores de sintaxis en los ficheros</strong> named 
                         y en los de zona, gracias a los siguientes comandos:                        
                     </p>
                     <span>$ sudo named-checkconf /etc/bind/named.conf</span>
@@ -195,8 +186,8 @@
                 </li>
                 <li>
                     <p>
-                        Una vez que hemos guardado el fichero de configuración, reiniciamos el 
-                        proceso bind con uno del siguiente comando:
+                        Una vez que hemos guardado el fichero de configuración, <strong>reiniciamos el 
+                        proceso bind</strong> con uno del siguiente comando:
                     </p>
                     <span>$ sudo service bind9 restart</span>
                 </li>
@@ -204,22 +195,22 @@
                     <p>
                         Una vez configurado nuestro servidor DNS, debemos indicar a nuestro servidor 
                         Linux quienes son los servidores DNS, el dominio de nuestro servidor y dónde 
-                        es necesario realizar la búsqueda. Escribimos: 
+                        es necesario realizar la búsqueda. Para ello <strong>abrimos el archivo resolv.conf </strong>
+                        con el siguiente comando: 
                     </p>
                     <span>$ sudo gedit /etc/resolv.conf</span>
-                    </p>
-                        Se nos abrirá el archivo resolv.conf, el cual lo dejaremos como en la siguiente 
-                        imagen.                        
+                    <p>
+                        Cuando se nos abra el archivo <strong>escribimos las 4 lineas que aparecen señaladas en rojo en la siguiente imagen: </strong>                
                     </p>
                     <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/8.JPG" alt="imagen que muestra donde hay que hacer clic">
                 </li>
                 <li>
-                    <p>Por último volvemos a reiniciar el proceso bind, ejecutando: </p>
+                    <p>Por último volvemos a <strong>reiniciar el proceso bind</strong>, ejecutando: </p>
                     <span>$ sudo service bind9 restart</span>
                 </li>
                 <li>
                     <p>
-                        Para comprobar que la configuración se ha realizado con éxito escribimos los 
+                        Para <strong>comprobar que la configuración se ha realizado con éxito</strong> escribimos los 
                         comandos que aparecen en la siguiente imagen:
                     </p>
                     <img src="../../img/virtualBox/ubuntu/dns maestro sobre dominio/9.JPG" alt="imagen que muestra donde hay que hacer clic">
