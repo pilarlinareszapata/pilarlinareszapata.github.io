@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="En este artículo te voy a enseñar cómo crear un chatbot usando Node.js y la plataforma de mensajería instantanea de WhatsApp.">
+    <meta name="keywords" content="Pilar Linares Zapata, bots para whatsapp, chatbot en WhatsApp, Node.js, Whatsapp-web.js, crear un bot para WhatsApp, crear un robot para WhatsApp, automatizar mensajes en whatsapp, interacción con usuarios en WhatsApp, automatizar respuestas en whatsapp">
+    <meta name="author" content="Pilar Linares Zapata">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cómo crear un chatbot en WhatsApp con Node.js y Whatsapp-web.js">
+    <meta property="og:image" content="../../img/logo.jpg">
+
+    
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="icon" type="image/png" href="../../img/logo.jpeg"/>
+    <title>Cómo crear un chatbot en WhatsApp con Node.js y Whatsapp-web.js</title>
+</head>
+<body>
+    <header>
+        <figure>
+            <a href="https://pilarlinareszapata.github.io/"> 
+               <img src="../../img/logo.jpeg" alt="logo LZP" id="logo"> 
+            </a>
+            <figcaption>Pilar Linares Zapata</figcaption>
+        </figure>
+        <div class="menu">
+            <input type="checkbox" class="side-menu">
+            <label for="side-menu" class="hamb">
+                <span class="hamb-line"></span>
+            </label>
+            <nav>
+                <ul>
+                    <a href="https://pilarlinareszapata.github.io/">
+                        <li>Inicio</li>
+                    </a>
+                    <li>VirtualBox</li>
+                </ul>
+            </nav>
+        </div>
+    </header> 
+    <main>
+        <article>
+            <h1>Cómo crear un chatbot en WhatsApp con Node.js y Whatsapp-web.js</h1>
+            <p>
+                En este artículo te voy a enseñar cómo crear un chatbot usando Node.js 
+                y la plataforma de mensajería instantanea de WhatsApp.
+            </p>
+            <h2>¿Qué es un chatbot?</h2>
+            <p>
+                Un chatbot es un programa de computadora que utiliza inteligencia 
+                artificial (IA) para comunicarse con los usuarios. Los chatbots pueden 
+                ser programados para responder preguntas, proporcionar información, 
+                realizar tareas y mucho más. Los chatbots se están volviendo cada vez 
+                más populares, especialmente en aplicaciones de mensajería instantánea, 
+                ya que permiten una comunicación rápida y eficiente con los usuarios.
+            </p>
+            <h2>¿Qué es Node.js?</h2>
+            <p>
+                Node.js es una plataforma de programación basada en el motor de 
+                JavaScript V8 de Google. Node.js se utiliza para crear aplicaciones 
+                web y de red escalables y de alta velocidad. Node.js utiliza un modelo 
+                de programación basado en eventos no bloqueantes, lo que significa que 
+                puede manejar múltiples solicitudes y eventos simultáneamente sin bloquear 
+                el hilo de ejecución principal.
+            </p>
+            <h2>Creando un chatbot en WhatsApp usando Node.js</h2>
+            <p>
+                Para crear un chatbot en WhatsApp utilizando Node.js, necesitamos usar una 
+                biblioteca llamada "whatsapp-web.js". Esta biblioteca nos permite interactuar 
+                con la plataforma de WhatsApp a través de la API web de WhatsApp. A continuación 
+                se presentan los pasos para crear un chatbot en WhatsApp utilizando Node.js:
+            </p>
+            <ol>
+                <li>
+                    <h3>Instalar Node.js y whatsapp-web.js</h3>
+                    <p>
+                        Antes de comenzar, hay que instalar Node.js en nuestro ordenador (<a href="https://nodejs.org/es/download">Haz clic aquí para descargar</a>) 
+                        y crear una carpeta en nuestro ordenador para nuestro proyecto de chatbot. 
+                        Luego, abrimos una terminal, nos situamos en nuestra carpeta creada y 
+                        ejecutamos el siguiente comando para crear un archivo package.json y 
+                        instalar la biblioteca "whatsapp-web.js":
+                    </p> 
+                    <span>npm init</span>
+                    <span>npm install whatsapp-web.js qrcode-terminal</span>
+                    <p>*Para utilizar el comando npm en Windows, recomiendo hacerlo desde el terminal 
+                        Windows PowerShell y no desde el símbolo del sistema.
+                    </p>
+                </li>
+                <li>
+                    <h3>Crear y configurar el archivo index.js</h3>
+                    <p>
+                        A continuación, nos situamos en la carpeta creada anteriormente y creamos
+                        un archivo llamado index.js (realmente puedes llamarlo como  quieras solo 
+                        asegurate de ponerle la extensión .js).
+                        <a href="archivo-chatbot/index.js" download="index.js">También puedes descargar el archivo haciendo clic aquí.</a>
+                    </p>
+                    <P>
+                        El archivo index.js deberá contener el siguiente código:
+                    </P>
+                    <code>
+                        const qrcode = require('qrcode-terminal');
+
+                        //Crea una sesión con whatsapp-web y la guarda localmente para autenticarse solo una vez por QR
+                        const { Client, LocalAuth } = require('whatsapp-web.js');
+                        const client = new Client({
+                            authStrategy: new LocalAuth()
+                        });
+
+                        //Genera el código qr para conectarse a whatsapp-web
+                        client.on('qr', qr => {
+                            qrcode.generate(qr, {small: true});
+                        });
+
+                        //Si la conexión es exitosa muestra el mensaje de conexión exitosa
+                        client.on('ready', () => {
+                            console.log('¡¡Conexión exitosa!!');
+                        });
+
+
+                        //Escucha los mensajes y el bot responde lo que le hayamos puesto
+                        client.on('message', message => {
+                            console.log('Mensaje recibido:', message.body);
+                            if (message.body === 'Hola') {
+                                client.sendMessage(message.from, 'Hola soy un bot, mi creador esta ocupado ahora mismo. En breves se comunicará con usted para resolver sus dudas.');
+                            }
+                        });
+                        /*
+                        Finalmente, esta línea inicia la sesión de WhatsApp Web. Una vez que se 
+                        ejecuta esta línea, el bot comenzará a escuchar y responder a los 
+                        mensajes recibidos en la cuenta de WhatsApp asociada.
+                        */
+                        client.initialize();
+                    </code>
+                </li>
+                <li>
+                    <h3>Esteblecer la conexión con Whatsapp</h3>
+                    <p>
+                        Una vez que estamos conectados a la plataforma de WhatsApp, podemos escuchar los 
+                        mensajes entrantes ejecutando (node nombreArchivo.js) el siguiente comando: 
+                    </p>
+                    <span>node index.js</span>
+                    <p>
+                        Cuando hayamos ejecutado el comando se nos generará un código QR que escanearemos
+                        desde la app de WhatsApp, hacemos clic en dispositivos vinculados y escaneamos.
+                    </p>
+                    <img src="../../img/javaScript/whatsapp-web.js/1.JPG">
+                    <p>Si la conexión es ha establecido con éxito, deberá aparecer en el terminal '¡¡Conexion exitosa!!'.</p>
+                </li>
+                <li>
+                    <h3>Terminada la configuración.</h3>
+                    <p>
+                        Ahora podemos poner a prueba nuestro bot. Enviamos un mensaje de <strong>Hola</strong> a nuestro número vinculado 
+                        de WhatsApp y deberíamos recibir una respuesta del bot que hemos configurado. En nuestro caso, la 
+                        respuesta es:<strong>Hola soy un bot, mi creador esta ocupado ahora 
+                        mismo. En breves se comunicará con usted para resolver sus dudas.</strong>, Podemos comprobar
+                        en la imagen que si ponemos un mensaje que no sea "Hola", el chatbot no respoderá.
+                    </p>
+                    <img src="../../img/javaScript/whatsapp-web.js/2.jpeg">
+                    <p>
+                        ¡¡Funcionaa!!,  Todo ha salido bien. Hemos creado un bot fácil de configurar, rápido, 
+                        gratuito y que funciona perfectamente. Próximamente mejoraremos la funcionalidad para 
+                        recibir y enviar mensajes.
+                    </p>
+                </li>
+            </ol>
+            <h2>Conclusión</h2>
+            <p>
+                En este artículo, hemos aprendido cómo crear un chatbot en WhatsApp utilizando Node.js 
+                y la biblioteca "whatsapp-web.js". Los chatbots son una forma eficiente y escalable 
+                de interactuar con los usuarios, y WhatsApp es una plataforma popular para implementar 
+                chatbots debido a su gran base de usuarios. Node.js es una plataforma de programación de 
+                alto rendimiento y escalable que es ideal para crear aplicaciones web y de red, y su 
+                modelo de programación basado en eventos lo hace perfecto para manejar múltiples solicitudes 
+                simultáneamente. Espero que este artículo te haya ayudado a comprender cómo crear un chatbot 
+                en WhatsApp utilizando Node.js y la biblioteca "whatsapp-web.js".
+            </p>
+            <h3>¡Buena suerte con tu proyecto de chatbot!</h3>
+        </article>
+    </main>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="En este artículo vamos a crear un servidor virtual seguro en nuestra máquina virtual Ubuntu.">
+    <meta name="keywords" content="Pilar Linares Zapata, servidor virtual seguro Apache, Cómo crear un servidor virtual seguro en Ubuntu, Creación de un servidor virtual seguro, VirtualBox, Ubuntu, servidor virtual seguro Ubuntu, servidor virtual seguro, Cómo crear un servidor virtual seguro, crear un servidor virtual seguro">
+    <meta name="author" content="Pilar Linares Zapata">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cómo crear un servidor virtual seguro">
+    <meta property="og:image" content="../../img/logo.jpg">
+
+    
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="icon" type="image/png" href="../../img/logo.jpeg"/>
+    <title>Cómo crear un servidor virtual seguro</title>
+</head>
+<body>
+    <header>
+        <figure>
+            <a href="https://pilarlinareszapata.github.io/"> 
+               <img src="../../img/logo.jpeg" alt="logo LZP" id="logo"> 
+            </a>
+            <figcaption>Pilar Linares Zapata</figcaption>
+        </figure>
+        <div class="menu">
+            <input type="checkbox" class="side-menu">
+            <label for="side-menu" class="hamb">
+                <span class="hamb-line"></span>
+            </label>
+            <nav>
+                <ul>
+                    <a href="https://pilarlinareszapata.github.io/">
+                        <li>Inicio</li>
+                    </a>
+                    <li>VirtualBox</li>
+                </ul>
+            </nav>
+        </div>
+    </header> 
+    <main id="configuracion_redes"  class="ubuntu">
+        <article>
+            <h1>Cómo crear un servidor virtual seguro en nuestro VirtualBox Ubuntu</h1>
+            <p>
+                En este artículo vamos a crear un servidor virtual seguro. 
+            </p>
+            <ol>
+                <li>
+                    <p>
+                        Deshabilitar el servidor virtual ssl por defecto (default-ssl.conf), para ello
+                        ejecutamos los siguientes comandos:
+                    </p>
+                    <span>$ sudo a2dissite 000-default.conf </span>
+                    <span>$ sudo service apache2 reload</span>
+                </li>
+                <li>
+                    <p>
+                        Crear y habilitar un servidor virtual https para el dominio seguro.micentro.edu.
+                        Para ello debemos de crear un archivo de configuración para el servidor
+                        virtual HTTPS con el siguiente comando:
+                    </p>
+                    <span>sudo nano /etc/apache2/sitesavailable/seguro.micentro.edu.conf</span>
+                    <p>Nos aparecerá el archivo, que deberá de quedar como en la siguiente imagen: </p>
+                    <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/1.PNG" alt="imagen que muestra donde hay que hacer clic">
+                    <code>
+
+                    </code>
+                </li>
+                <li>
+                    <p>
+                        Directorio raíz: /var/www/html/seguro
+                    </p>
+                    <span>$ sudo mkdir /var/www/html/seguro</span>
+                    <ol>
+                        <li>
+                            <p>
+                                Se servirá el fichero index.html si no se indica nada en la url, para ello
+                                debemos crear un archivo llamado index.html dentro de la carpeta
+                                /var/www/html/seguro con el contenido que desees. Ejecutamos: 
+                            </p>
+                            <span>sudo nano /var/www/html/seguro/index.html</span>
+                            <p>Y escribimos el contenido que va a tener nuestro index.html. Ejemplo:</p>
+                            <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/2.PNG" alt="imagen que muestra donde hay que hacer clic">
+                        </li>
+                        <li>
+                            <p>
+                                Se mostrará un listado del directorio raíz si se solicita un fichero
+                                inexistente. Para ello agrega lo siguiente al archivo 
+                                etc/apache2/sitesavailable/seguro.micentro.edu.conf dentro de la sección &lt;VirtualHost&gt;:
+                            </p>
+                            <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/3.PNG" alt="imagen que muestra donde hay que hacer clic">
+                        </li>
+                        <li>
+                            <p>
+                                Podrán acceder todos los usuarios: Por defecto, todos los usuarios
+                                tendrán acceso al servidor virtual HTTPS creado. 
+                            </p>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <p>El log de errores será /var/log/apache2/seguro.error.log</p>
+                    <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/4.PNG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>El log de accesos será /var/log/apache2/seguro.access.log</p>
+                    <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/5.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Una vez configurado el archivo seguro.micentro.edu.conf, habilitamos el nuevo
+                        servidor virtual y reiniciamos Apache con los siguientes comandos: 
+                    </p>
+                        <span>$ sudo a2ensite seguro.micentro.edu.conf</span>
+                        <span>$ sudo systemctl restart apache2</span>
+                </li>
+                <li>
+                    <p>
+                        A continuación, ejecutamos el comando nano /etc/hosts y añadimos la ip
+                        correspondiente y el nombre de dominio, en mi caso quedaría así:
+                    </p>
+                    <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/6.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Por último, ponemos en nuestro navegador de nuestra máquina virtual
+                        https://www.seguro.micentro.edu, lo primero que nos va a aparecer es una alerta
+                        de seguridad que nos indica que el certificado no está emitido por una CA en la
+                        que haremos clic en “Avanzado”, nos aparecerá un texto abajo donde haremos
+                        clic en “Aceptar el riesgo y continuar”: 
+                    </p>
+                    <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/7.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>Finalmente nos aparecerá el index.html que creamos</p>
+                    <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/8.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                
+                <li>
+                    <p>
+                        Ya hemos comprobado que nuestro sitio seguro funciona correctamente, sin
+                        embargo, no es deseable que se pueda entrar al él si no es de forma segura, por
+                        lo que si el usuario intenta acceder utilizando el puerto estándar (80, HTTP), le
+                        debemos redirigir al sitio por el puerto seguro (443, HTTPS). Para ello,
+                        modificamos el archivo de configuración de la siguiente manera:
+                    </p>
+                    <img src="../../img/virtualBox/ubuntu/sevidor virtual seguro/9.JPG" alt="imagen que muestra donde hay que hacer clic">
+                </li>
+                <li>
+                    <p>
+                        Si al ejecutar systemctl restart apache2, te da error ejecuta el siguiente comando
+                        para saber que error es: apachectl configtest. Si el error que te da es este:
+                        Invalid command 'RewriteEngine', perhaps misspelled or defined by a
+                        module not included in the server configuration, quiere decir que el módulo
+                        de reescritura de URL de Apache no está habilitado en su servidor. Para
+                        habilitarlo, debe ejecutar el siguiente comando en la terminal: sudo a2enmod
+                        rewrite y volver a reiniciar Apache: sudo systemctl restart apache2. Después
+                        de hacer esto, deberías poder utilizar la directiva RewriteEngine en su archivo de
+                        configuración de Apache sin errores.
+                    </p>
+                    <span>$ sudo a2enmod rewrite</span>
+                    <span>$ sudo systemctl restart apache2</span>
+                </li>
+            </ol>
+            <p class="fin">
+                Con estos pasos, ya tendremos configuradas las tarjetas red de nuestra máquina virtual Ubuntu. Si quieres comprobar que todo
+                está correcto puedes hacer ping en la máquina anfitrión de tu IP HOST en mi caso (ping 192.168.56.10) y entrar en internet 
+                en tu máquita virtual Ubuntu.
+            </p>
+        </article>
+        <article class="articulos_ubuntu">
+            <h3>Artículos relacionados: </h3>
+            <ul>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/instalar-ubuntu-en-virtualBox/"> 
+                    <li>Cómo instalar Ubuntu en VirtualBox</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/instalar-guest-additions-en-ubuntu/"> 
+                    <li>Cómo instalar Guest Additions en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/crear-sitio-web-en-servidor-apache-con-ubuntu/"> 
+                    <li>Cómo crear un sitio web dentro del servidor apache en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/instalar-OpenLDAP-en-ubuntu/"> 
+                    <li>Cómo instalar el servidor OpenLDAP en Ubuntu</li>
+                </a>
+                <a href="https://pilarlinareszapata.github.io/virtualBox/instalar-phpldapadmin-en-ubuntu/"> 
+                    <li>Cómo instalar phpldapadmin en Ubuntu</li>
+                </a>
+            </ul>
+        </article>
+    </main>
+</body>
+</html>
