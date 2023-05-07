@@ -3,7 +3,8 @@
 }
 
 body{
-    margin: 0px;
+    margin: 0px auto;
+    max-width: 1300px;
 }
 
 /* HEADER */
@@ -16,7 +17,6 @@ header{
 }
     /* LOGO */
     header figure{
-        width: 20%;
         margin: 20px;
         font-size: 12px;
         text-align: center;
@@ -641,5 +641,80 @@ section{
         padding-left: 15px;
     }
     
+}
+
+/*.nodejs{
+    margin: 10px 30px 0px 30px;
+    width: 90%;
+}*/
+/* Ponemos el botón de copiar código aparezca siempre, no cuando se pasa por encima */
+div.code-toolbar > .toolbar{
+    opacity: 1 !important;
+}
+
+.tutorial{
+    width: 90%;
+    margin: auto;
+}
+
+.tutorial article{
+    width: 100%;
+}
+
+.tutorial h1{
+    text-align: center;
+    font-size: calc(1.7em + 1.7vw);
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+.tutorial h2{
+    text-align: start;
+    display: block;
+    font-size: calc(1.4em + 1.4vw);
+    font-weight: bolder;
+    margin: 0px;
+}
+
+.tutorial h3{
+    font-size: 28px;
+    text-align: start;
+    margin-bottom: 15px;
+}
+
+.tutorial p{
+    font-size: calc(0.75em + 0.75vw);
+    line-height: 1.5;
+}
+
+.tutorial ol{
+    width: 90%;
+    font-size: 28px;
+    text-align: justify;
+}
+
+.tutorial li{
+    width: 100%;
+    margin-top: 40px;
+    text-align: start;
+}
+
+.tutorial li p{
+    font-size: calc(0.5em + 0.5vw);
+    line-height: 1.5;
+    width: 95%;
+    margin: 10px 0px 15px 10px;
+}
+
+
+pre[class*="language-"]{
+    font-size: calc(0.5em + 0.5vw) !important;
+    padding: 10px 15px !important;
+}
+.tutorial img{
+    display: block;
+    margin:auto;
+    width: 80%;  
+    max-width: 500px; 
 }
 
