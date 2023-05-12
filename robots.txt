@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /descargar/
+Disallow: /librerias/
+Disallow: /politica-de-cookies/
+Disallow: /sobre-mi/
+Disallow: /css/
+Disallow: /img/
+
+Sitemap: https://pilarlinareszapata.github.io/sitemap.xml
