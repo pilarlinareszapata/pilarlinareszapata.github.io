@@ -256,7 +256,7 @@ button {
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 20px;
   letter-spacing: .1rem;
   position: relative;
   overflow: hidden;
@@ -284,7 +284,7 @@ button {
 }
 
 .e-nav__link:after {
-  content: "Home Page";
+  content: "Inicio";
 }
 
 .e-nav__link:hover:before {
@@ -379,6 +379,16 @@ button {
   border-top-right-radius: 50%;
   position: relative;
   z-index: 200;
+}
+
+.cover::before{
+    position: absolute;
+    top: 30px;
+    left: 35px;
+    font-size: 30px;
+    font-weight: bolder;
+    color: #090910;
+    content: "Error 404";
 }
 
 .in-cover {
